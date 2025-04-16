@@ -128,6 +128,7 @@ function AddLearningProgress() {
               </div>
               <div className="Auth_formGroup">
                 <label className="Auth_label">End Date</label>
+                {/*Add Validation on date settings */}
                 <input
                   className="Auth_input"
                   name="endDate"
