@@ -19,7 +19,7 @@ function AllLearningProgress() {
       })
       .catch((error) => console.error('Error fetching learning progress data:', error));
   }, []);
-
+//build handle delete operation
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this learning progress?')) {
       try {
