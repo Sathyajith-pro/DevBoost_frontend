@@ -11,15 +11,6 @@
   gap: 20px;
 }
 
-.side_logoo {
-  background-image: url("./img/logo.png");
-  width: 150px;
-  height: 40px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  cursor: pointer;
-}
 
 .side_bar_nav_item_con {
   display: flex;

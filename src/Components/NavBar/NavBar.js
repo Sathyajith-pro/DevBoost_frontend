@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { FaUserGraduate } from "react-icons/fa";
-import { MdNotifications } from "react-icons/md";
-import { MdNotificationsActive } from "react-icons/md";
-import { IoLogOut } from "react-icons/io5";
+import { Bell, BellRing, LogOut, User, Mail, Phone, Code } from 'lucide-react';
 import axios from 'axios';
-import './NavBar.css';
-import './UserCard.css'; // Import CSS for the card
+import './NavBar.css'; // Using scoped component styles
+import logo from './img/logo.png';
 
 function NavBar() {
     const [allRead, setAllRead] = useState(true);
@@ -35,64 +32,144 @@ function NavBar() {
 
         if (userId) {
             fetchNotifications();
-            fetchUserData(); // Fetch user data on component mount
+            fetchUserData();
         }
     }, [userId]);
+
+    const handleDeleteProfile = async () => {
+        if (window.confirm('Are you sure you want to delete your profile? This action cannot be undone.')) {
+            try {
+                await axios.delete(`http://localhost:8080/user/${userId}`);
+                alert('Profile deleted successfully!');
+                localStorage.removeItem('userID');
+                window.location.href = '/';
+            } catch (error) {
+                console.error('Error deleting profile:', error);
+                alert('Failed to delete profile. Please try again.');
+            }
+        }
+    };
+
+    const getInitials = (name) => {
+        return name
+            ?.split(' ')
+            .map(word => word[0])
+            .join('')
+            .toUpperCase() || 'U';
+    };
 
     const currentPath = window.location.pathname;
 
     return (
-        <div className="navbar">
-            <div className='nav_item_set'>
-                <div className='side_logoo'></div>
-                <div className='nav_bar_item'>
-                    {allRead ? (
-                        <MdNotifications
-                            className={`nav_item_icon ${currentPath === '/notifications' ? 'nav_item_icon_noty' : ''}`}
-                            onClick={() => (window.location.href = '/notifications')} />
-                    ) : (
-                        <MdNotificationsActive className='nav_item_icon_noty' onClick={() => (window.location.href = '/notifications')} />
-                    )}
-                    <IoLogOut
-                        className='nav_item_icon'
-                        onClick={() => {
-                            localStorage.removeItem('userID');
-                            localStorage.removeItem('userType');
-                            window.location.href = '/';
-                        }}
-                    />
-                    <FaUserGraduate
-                        className='nav_item_icon'
-                        style={{ display: localStorage.getItem('userType') === 'googale' ? 'none' : 'block' }}
-                        onClick={() => setShowCard(!showCard)} 
-                    />
+        <nav className="navbar-component">
+            <div className="navbar-container">
+                <div className="navbar-logo">
+                    <img src={logo} alt="DevBoost Logo" className="navbar-logo-img" />
+                </div>
+                
+                <div className="navbar-items">
+                    <div className="navbar-icon-container">
+                        {allRead ? (
+                            <Bell
+                                className={`navbar-icon ${currentPath === '/notifications' ? 'active' : ''}`}
+                                onClick={() => (window.location.href = '/notifications')}
+                                size={24}
+                            />
+                        ) : (
+                            <BellRing 
+                                className="navbar-icon active"
+                                onClick={() => (window.location.href = '/notifications')}
+                                size={24}
+                            />
+                        )}
+                    </div>
+                    
+                    <div className="navbar-icon-container">
+                        <LogOut
+                            className="navbar-icon"
+                            onClick={() => {
+                                localStorage.removeItem('userID');
+                                localStorage.removeItem('userType');
+                                window.location.href = '/';
+                            }}
+                            size={24}
+                        />
+                    </div>
+                    
+                    <div className="navbar-icon-container">
+                        <User
+                            className="navbar-icon"
+                            style={{ display: localStorage.getItem('userType') === 'googale' ? 'none' : 'block' }}
+                            onClick={() => setShowCard(!showCard)}
+                            size={24}
+                        />
+                    </div>
                 </div>
             </div>
+
             {showCard && userData && (
-                <div className="user-card">
-                    <p><strong>Full Name:</strong> {userData.fullname}</p>
-                    <p><strong>Email:</strong> {userData.email}</p>
-                    <p><strong>Phone:</strong> {userData.phone}</p>
-                    <p><strong>Skills:</strong> {userData.skills.join(', ')}</p>
-                    <button onClick={() => (window.location.href = `/updateUserProfile/${userId}`)}>Update Profile</button>
-                    <button
-                        onClick={() => {
-                            if (window.confirm('Are you sure you want to delete your profile?')) {
-                                axios.delete(`http://localhost:8080/user/${userId}`)
-                                    .then(() => {
-                                        alert('Profile deleted successfully!');
-                                        localStorage.removeItem('userID');
-                                        window.location.href = '/';
-                                    })
-                                    .catch(error => console.error('Error deleting profile:', error));
-                            }
-                        }}
-                    >
-                        Delete Profile
-                    </button>
+                <div className="navbar-user-card">
+                    <div className="navbar-card-content">
+                        <div className="navbar-card-header">
+                            <div className="navbar-card-avatar">
+                                {getInitials(userData.fullname)}
+                            </div>
+                            <div className="navbar-card-titles">
+                                <h3>{userData.fullname}</h3>
+                                <p>Student</p>
+                            </div>
+                        </div>
+                        
+                        <div className="navbar-card-info">
+                            <div className="navbar-card-field">
+                                <Mail size={18} />
+                                <div className="navbar-card-field-content">
+                                    <div className="navbar-card-field-label">Email</div>
+                                    <div className="navbar-card-field-value">
+                                        {userData.email.includes('@gmail.com') ? 
+                                            userData.email.split('@')[0] + '@...' : 
+                                            userData.email}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="navbar-card-field">
+                                <Phone size={18} />
+                                <div className="navbar-card-field-content">
+                                    <div className="navbar-card-field-label">Phone</div>
+                                    <div className="navbar-card-field-value">{userData.phone}</div>
+                                </div>
+                            </div>
+
+                            <div className="navbar-card-field">
+                                <Code size={18} />
+                                <div className="navbar-card-field-content">
+                                    <div className="navbar-card-field-label">Skills</div>
+                                    <div className="navbar-card-field-value">
+                                        {userData.skills.join(', ')}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="navbar-card-actions">
+                        <button 
+                            className="navbar-update-btn"
+                            onClick={() => (window.location.href = `/updateUserProfile/${userId}`)}
+                        >
+                            Update Profile
+                        </button>
+                        <button
+                            className="navbar-delete-btn"
+                            onClick={handleDeleteProfile}
+                        >
+                            Delete Profile
+                        </button>
+                    </div>
                 </div>
             )}
-        </div>
+        </nav>
     );
 }
 
