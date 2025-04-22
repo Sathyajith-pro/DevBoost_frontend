@@ -1,9 +1,10 @@
 import React from 'react';
+import { BookOpen, MessageSquare, BarChart2, Zap } from 'lucide-react';
 import './SideBar.css';
 import NavBar from '../NavBar/NavBar';
 
 function SideBar() {
-    const currentPath = window.location.pathname; // Get the current path
+    const currentPath = window.location.pathname;
 
     return (
         <div>
@@ -12,31 +13,36 @@ function SideBar() {
             </div>
             <div className='side_bar'>           
                 <div className='side_bar_nav_item_con'>
-                    <p
+                    <div
                         className={`side_bar_nav_item ${currentPath === '/learningSystem/allLearningPost' ? 'side_bar_nav_item--active' : ''}`}
                         onClick={() => (window.location.href = '/learningSystem/allLearningPost')}
                     >
-                        EduStream
-                    </p>
-                    <p
+                        <BookOpen className="side_bar_icon" />
+                        <span>EduStream</span>
+                    </div>
+                    <div
                         className={`side_bar_nav_item ${currentPath === '/allPost' ? 'side_bar_nav_item--active' : ''}`}
                         onClick={() => (window.location.href = '/allPost')}
                     >
-                        BoostPost
-                    </p>
-                    <p
+                        <MessageSquare className="side_bar_icon" />
+                        <span>BoostPost</span>
+                    </div>
+                    <div
                         className={`side_bar_nav_item ${currentPath === '/allLearningProgress' ? 'side_bar_nav_item--active' : ''}`}
                         onClick={() => (window.location.href = '/allLearningProgress')}
                     >
-                        LearnTrack
-                    </p>
-                    <p
-                        className={`side_bar_nav_item ${currentPath === '/learningSystem/recommendPost' ? 'side_bar_nav_item--active' : ''}`}
-                        style={{ display: localStorage.getItem('userType') === 'googale' ? 'none' : 'block' }}
-                        onClick={() => (window.location.href = '/learningSystem/recommendPost')}
-                    >
-                        SkillPulse
-                    </p>
+                        <BarChart2 className="side_bar_icon" />
+                        <span>LearnTrack</span>
+                    </div>
+                    {localStorage.getItem('userType') !== 'googale' && (
+                        <div
+                            className={`side_bar_nav_item ${currentPath === '/learningSystem/recommendPost' ? 'side_bar_nav_item--active' : ''}`}
+                            onClick={() => (window.location.href = '/learningSystem/recommendPost')}
+                        >
+                            <Zap className="side_bar_icon" />
+                            <span>SkillPulse</span>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
