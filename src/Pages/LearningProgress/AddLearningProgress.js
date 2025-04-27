@@ -144,6 +144,7 @@ function AddLearningProgress() {
                   }}
                   required
                 />
+                {/*Add Validation on percentage section */}
               </div>
               <div className="Auth_formGroup">
                 <label className="Auth_label">Level</label>
