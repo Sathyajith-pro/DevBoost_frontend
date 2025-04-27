@@ -1,59 +1,89 @@
 .side_bar {
   position: fixed;
-  background-color: white;
-  width: 300px;
+  left: 0;
+  top: 0;
+  background-color: #ffffff;
+  width: 280px;
   height: 100vh;
-  padding: 100px 20px 20px 0;
+  padding: 90px 0 20px 0;
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
   flex-direction: column;
-  gap: 20px;
-}
-
-.side_logoo {
-  background-image: url("./img/logo.png");
-  width: 150px;
-  height: 40px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  cursor: pointer;
+  gap: 8px;
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.05);
+  z-index: 90;
+  border-right: 1px solid #f0f0f0;
 }
 
 .side_bar_nav_item_con {
   display: flex;
-  align-items: flex-start;
-  gap: 15px;
   flex-direction: column;
+  gap: 4px;
   width: 100%;
+  padding: 0 16px;
 }
 
 .side_bar_nav_item {
-  font-size: 16px;
-  color: #555555;
+  position: relative;
+  font-size: 15px;
+  color: #4b5563;
   cursor: pointer;
   text-align: left;
-  padding: 12px 20px;
-  border-radius: 6px;
+  padding: 14px 20px;
+  border-radius: 8px;
   font-weight: 500;
   width: 100%;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: transparent;
 }
 
 .side_bar_nav_item:hover {
-  background-color: #0f6fb2;
-  color: white;
+  background-color: #f8fafc;
+  color: #111827;
 }
 
 .side_bar_nav_item--active {
-  font-size: 16px;
-  color: white;
-  cursor: pointer;
-  text-align: left;
-  background-color: #0f6fb2;
-  padding: 12px 20px;
-  border-radius: 6px;
+  background-color: rgba(96, 181, 255, 0.1);
+  color: #111827;
   font-weight: 600;
-  width: 100%;
+}
+
+.side_bar_nav_item--active:hover {
+  background-color: rgba(96, 181, 255, 0.15);
+}
+
+/* Icon styling */
+.side_bar_icon {
+  width: 20px;
+  height: 20px;
+  color: #60B5FF;
+  transition: all 0.25s ease;
+}
+
+.side_bar_nav_item--active .side_bar_icon {
+  transform: scale(1.1);
+}
+
+/* Active item indicator */
+.side_bar_nav_item--active::after {
+  content: '';
+  position: absolute;
+  right: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 24px;
+  background-color: #60B5FF;
+  border-radius: 4px 0 0 4px;
+}
+
+/* Hover effects */
+.side_bar_nav_item:hover .side_bar_icon {
+  transform: translateX(2px);
+}
+
+.side_bar_nav_item--active:hover .side_bar_icon {
+  transform: scale(1.1) translateX(2px);
 }

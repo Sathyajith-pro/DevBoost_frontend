@@ -37,7 +37,17 @@ function AllLearningProgress() {
       }
     }
   };
-
+//Add toggele filter
+/* const toggleFilter = () => {
+    if (showMyPosts) {
+      setFilteredData(progressData); // Show all posts
+    } else {
+      const myPosts = progressData.filter((progress) => progress.postOwnerID === userId);
+      setFilteredData(myPosts); // Show only user's posts
+    }
+    setShowMyPosts(!showMyPosts); // Toggle filter mode
+  };
+ */
   const toggleFilter = () => {
     if (showMyPosts) {
       setFilteredData(progressData); // Show all posts
