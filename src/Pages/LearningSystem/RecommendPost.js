@@ -12,7 +12,7 @@ function RecommendPost() {
     const [userSkills, setUserSkills] = useState([]);
     const [showingMyPosts, setShowingMyPosts] = useState(false);
     const userId = localStorage.getItem('userID');
-
+//comment
     useEffect(() => {
         const fetchUserSkills = async () => {
             const userID = localStorage.getItem('userID');
