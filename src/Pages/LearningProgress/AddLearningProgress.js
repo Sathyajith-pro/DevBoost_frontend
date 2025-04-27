@@ -33,7 +33,7 @@ function AddLearningProgress() {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
+//resolve error in handlesubmit
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
