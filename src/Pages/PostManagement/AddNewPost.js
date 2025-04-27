@@ -61,7 +61,7 @@ function AddNewPost() {
     setMedia(files);
     setMediaPreviews(previews); // Set preview objects
   };
-
+//create update post form
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
