@@ -179,7 +179,7 @@ function AllPost() {
           post.id === postId ? { ...post, comments: response.data.comments } : post
         )
       );
-
+//set filtered posts
       setFilteredPosts((prevFilteredPosts) =>
         prevFilteredPosts.map((post) =>
           post.id === postId ? { ...post, comments: response.data.comments } : post
