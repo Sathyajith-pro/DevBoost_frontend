@@ -134,7 +134,7 @@ function AllPost() {
       console.error('Error liking post:', error);
     }
   };
-
+//handle follow toggle
   const handleFollowToggle = async (postOwnerID) => {
     const userID = localStorage.getItem('userID');
     if (!userID) {
