@@ -14,7 +14,7 @@ function UpdateLearningProgress() {
     postOwnerID: '',
     postOwnerName: ''
   });
-
+//add try catch block fetch errors
   useEffect(() => {
     fetch(`http://localhost:8080/learningProgress/${id}`)
       .then((response) => response.json())
