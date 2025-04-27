@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import SideBar from '../../Components/SideBar/SideBar';
-import './notification.css'
-import { RiDeleteBin6Fill } from "react-icons/ri";
+import { RiDeleteBin6Fill, RiNotificationLine } from "react-icons/ri";
+import { FiCheckCircle } from "react-icons/fi";
+import './notification.css';
+
 function NotificationsPage() {
   const [notifications, setNotifications] = useState([]);
   const userId = localStorage.getItem('userID');
@@ -11,7 +13,6 @@ function NotificationsPage() {
     const fetchNotifications = async () => {
       try {
         const response = await axios.get(`http://localhost:8080/notifications/${userId}`);
-        console.log('API Response:', response.data); // Debugging log
         setNotifications(response.data);
       } catch (error) {
         console.error('Error fetching notifications:', error);
@@ -20,15 +21,13 @@ function NotificationsPage() {
 
     if (userId) {
       fetchNotifications();
-    } else {
-      console.error('User ID is not available');
     }
   }, [userId]);
 
   const handleMarkAsRead = async (id) => {
     try {
       await axios.put(`http://localhost:8080/notifications/${id}/markAsRead`);
-      setNotifications(notifications.map((n) => (n.id === id ? { ...n, read: true } : n)));
+      setNotifications(notifications.map(n => n.id === id ? { ...n, read: true } : n));
     } catch (error) {
       console.error('Error marking notification as read:', error);
     }
@@ -37,46 +36,60 @@ function NotificationsPage() {
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:8080/notifications/${id}`);
-      setNotifications(notifications.filter((n) => n.id !== id));
+      setNotifications(notifications.filter(n => n.id !== id));
     } catch (error) {
       console.error('Error deleting notification:', error);
     }
   };
 
   return (
-    <div>
-      <div className='continer'>
-        <div><SideBar /></div>
-        <div className='continSection'>
-          <div className='post_card_continer'>
-            {notifications.length === 0 ? (
-              <div className='not_found_box'>
-                <div className='not_found_img'></div>
-                <p className='not_found_msg'>No notifications found.</p>
-              </div>
-            ) : (
-              notifications.map((notification) => (
-                <div key={notification.id} className='post_card'>
-                  <div className='continer_set'>
-                    <p className='noty_topic'>{notification.message}</p>
-                    <p className='noty_time'>{notification.createdAt}</p>
-                  </div>
-                  <div className='noty_action_btn_con'>
-                    <button
-                      className='mark_redbtn'
-                      onClick={() => handleMarkAsRead(notification.id)}
-                      style={{ display: notification.read ? 'none' : 'inline-block' }}
-                    >
-                      Mark as Read
-                    </button>
-                    <RiDeleteBin6Fill
+    <div className="notification-page">
+      <SideBar />
+      
+      <div className="notification-content">
+        <div className="notification-header">
+          <h1>Notifications</h1>
+        </div>
+        
+        <div className="notification-list">
+          {notifications.length === 0 ? (
+            <div className="empty-state">
+              <RiNotificationLine className="empty-icon" size={48} />
+              <p className="empty-message">No notifications to display</p>
+            </div>
+          ) : (
+            notifications.map(notification => (
+              <div 
+                key={notification.id} 
+                className={`notification-card ${notification.read ? '' : 'unread'}`}
+              >
+                <p className="notification-message">{notification.message}</p>
+                
+                <div className="notification-meta">
+                  <span className="notification-time">
+                    {new Date(notification.createdAt).toLocaleString()}
+                  </span>
+                  
+                  <div className="notification-actions">
+                    {!notification.read && (
+                      <button 
+                        className="btn btn-primary"
+                        onClick={() => handleMarkAsRead(notification.id)}
+                      >
+                        <FiCheckCircle /> Mark as Read
+                      </button>
+                    )}
+                    <button 
+                      className="btn-icon"
                       onClick={() => handleDelete(notification.id)}
-                      className='action_btn_icon' />
+                    >
+                      <RiDeleteBin6Fill />
+                    </button>
                   </div>
                 </div>
-              ))
-            )}
-          </div>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </div>
