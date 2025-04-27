@@ -52,7 +52,7 @@ function AddNewPost() {
       alert('You can upload a maximum of 3 images.');
       window.location.reload();
     }
-
+//create validation can upload only 1 video 
     if (videoCount > 1) {
       alert('You can upload only 1 video.');
       window.location.reload();
