@@ -33,7 +33,7 @@ function AddLearningProgress() {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
+//resolve error in handlesubmit
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -52,7 +52,7 @@ function AddLearningProgress() {
       console.error('Error:', error);
     }
   };
-
+//re admit user form
   return (
     <div>
       <div className='continer'>
@@ -128,6 +128,7 @@ function AddLearningProgress() {
               </div>
               <div className="Auth_formGroup">
                 <label className="Auth_label">End Date</label>
+                {/*Add Validation on date settings */}
                 <input
                   className="Auth_input"
                   name="endDate"
@@ -143,6 +144,7 @@ function AddLearningProgress() {
                   }}
                   required
                 />
+                {/*Add Validation on percentage section */}
               </div>
               <div className="Auth_formGroup">
                 <label className="Auth_label">Level</label>
