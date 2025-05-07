@@ -6,13 +6,14 @@ import { IoSend } from "react-icons/io5";
 import { BiSolidLike } from "react-icons/bi";
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin6Fill } from "react-icons/ri";
+//comment
 function RecommendPost() {
     const [posts, setPosts] = useState([]);
     const [filteredPosts, setFilteredPosts] = useState([]);
     const [userSkills, setUserSkills] = useState([]);
     const [showingMyPosts, setShowingMyPosts] = useState(false);
     const userId = localStorage.getItem('userID');
-
+//comment
     useEffect(() => {
         const fetchUserSkills = async () => {
             const userID = localStorage.getItem('userID');

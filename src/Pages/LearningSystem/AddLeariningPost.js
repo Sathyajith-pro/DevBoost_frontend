@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { IoMdAdd } from "react-icons/io";
 import './post.css'
 import SideBar from '../../Components/SideBar/SideBar';
+// complete the lerning system
+
 function AddLeariningPost() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
